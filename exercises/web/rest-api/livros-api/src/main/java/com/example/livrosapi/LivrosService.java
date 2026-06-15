@@ -1,6 +1,5 @@
 package com.example.livrosapi;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,8 +8,11 @@ import java.util.List;
 @Service
 public class LivrosService {
 
-    @Autowired
-    private LivrosRepository livrosRepository;
+    private final LivrosRepository livrosRepository;
+
+    public LivrosService(LivrosRepository livrosRepository){
+        this.livrosRepository = livrosRepository;
+    }
 
     // POST
     public Livros adicionarLivro(Livros livro){
