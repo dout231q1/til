@@ -1,4 +1,4 @@
-package com.example.livrosapi;
+package com.example.livrosapi.entity;
 
 
 import jakarta.persistence.Entity;

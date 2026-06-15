@@ -1,5 +1,7 @@
-package com.example.livrosapi;
+package com.example.livrosapi.service;
 
+import com.example.livrosapi.entity.Livros;
+import com.example.livrosapi.repository.LivrosRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
