@@ -18,11 +18,13 @@ public class Livros{
     private String isbn;
     private Year anoPublicacao;
 
-    public Livros(Year anoPublicacao, String autor, String isbn, String titulo) {
-        this.anoPublicacao = anoPublicacao;
+    public Livros(){}
+
+    public Livros(String titulo, String autor, String isbn, Year anoPublicacao) {
+        this.titulo = titulo;
         this.autor = autor;
         this.isbn = isbn;
-        this.titulo = titulo;
+        this.anoPublicacao = anoPublicacao;
     }
 
     public Long getId() {return id;}
