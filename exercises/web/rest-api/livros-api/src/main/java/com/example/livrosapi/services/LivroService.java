@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class LivroService {
-
     private final LivroRepository livroRepository;
 
     public LivroService(LivroRepository livroRepository){
@@ -27,13 +25,14 @@ public class LivroService {
                 requestDTO.isbn(),
                 requestDTO.anoPublicacao()
         );
-        Livro livroSaved = livroRepository.save(livroEntity);
-        return new LivroResponseDTO(livroSaved);
+        Livro livroSalvo = livroRepository.save(livroEntity);
+        return new LivroResponseDTO(livroSalvo);
     }
 
     // GET ALL
-    public List<LivroResponseDTO> listarLivro(){
-        return livroRepository.findAll().stream()
+    public List<LivroResponseDTO> listarLivros(){
+        return livroRepository.findAll()
+                .stream()
                 .map(livroEntity -> new LivroResponseDTO(livroEntity))
                 .collect(Collectors.toList());
     }
@@ -47,15 +46,14 @@ public class LivroService {
 
     // PUT
     public LivroResponseDTO atualizarLivro(Long id, LivroRequestDTO requestDTO){
-        Livro existe = livroRepository.findById(id).orElse(null);
-        if(existe == null){return null;}
-        existe.setTitulo(requestDTO.titulo());
-        existe.setAutor(requestDTO.autor());
-        existe.setIsbn(requestDTO.isbn());
-        existe.setAnoPublicacao(requestDTO.anoPublicacao());
-
-        Livro livroSaved = livroRepository.save(existe);
-        return new LivroResponseDTO(livroSaved);
+        Livro livroEncontrado = livroRepository.findById(id).orElse(null);
+        if(livroEncontrado == null){return null;}
+        livroEncontrado.setTitulo(requestDTO.titulo());
+        livroEncontrado.setAutor(requestDTO.autor());
+        livroEncontrado.setIsbn(requestDTO.isbn());
+        livroEncontrado.setAnoPublicacao(requestDTO.anoPublicacao());
+        Livro livroAtualizado = livroRepository.save(livroEncontrado);
+        return new LivroResponseDTO(livroAtualizado);
     }
 
     // DELETE
