@@ -3,6 +3,7 @@ package com.example.livrosapi.controllers;
 import com.example.livrosapi.dtos.LivroRequestDTO;
 import com.example.livrosapi.dtos.LivroResponseDTO;
 import com.example.livrosapi.services.LivroService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +19,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/livros")
 public class LivroController {
-
     private final LivroService livroService;
 
     public LivroController(LivroService livroService){
@@ -26,21 +26,21 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<LivroResponseDTO> adicionarLivros(@RequestBody LivroRequestDTO requestDTO){
+    public ResponseEntity<LivroResponseDTO> adicionarLivro(@RequestBody LivroRequestDTO requestDTO){
         LivroResponseDTO novoLivro = livroService.adicionarLivro(requestDTO);
-        return ResponseEntity.ok(novoLivro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novoLivro);
     }
 
     @GetMapping
     public ResponseEntity<List<LivroResponseDTO>> listarLivros(){
-        List<LivroResponseDTO> livros = livroService.listarLivro();
+        List<LivroResponseDTO> livros = livroService.listarLivros();
         return ResponseEntity.ok(livros);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<LivroResponseDTO> buscarLivroPorId(@PathVariable Long id){
+    public ResponseEntity<LivroResponseDTO> buscarLivro(@PathVariable Long id){
         LivroResponseDTO livro = livroService.buscarLivro(id);
-        if (livro == null){return ResponseEntity.notFound().build();}
+        if(livro == null){return ResponseEntity.notFound().build();}
         return ResponseEntity.ok(livro);
     }
 
@@ -52,10 +52,8 @@ public class LivroController {
     }
 
     @DeleteMapping("/{id}")
-    public void removerLivroPorId(Long id){
+    public ResponseEntity<Void> removerLivroPorId(@PathVariable Long id){
         livroService.deletarLivro(id);
-        ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
-
-
 }
