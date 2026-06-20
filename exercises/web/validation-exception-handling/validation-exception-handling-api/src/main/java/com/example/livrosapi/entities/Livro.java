@@ -18,6 +18,8 @@ public class Livro {
     private String isbn;
     private Year anoPublicacao;
 
+    public Livro(){}
+
     public Livro(String titulo, String autor, String isbn, Year anoPublicacao) {
         this.titulo = titulo;
         this.autor = autor;
