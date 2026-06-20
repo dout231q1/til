@@ -3,6 +3,7 @@ package com.example.livrosapi.controllers;
 import com.example.livrosapi.dtos.LivroRequestDTO;
 import com.example.livrosapi.dtos.LivroResponseDTO;
 import com.example.livrosapi.services.LivroService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +27,7 @@ public class LivroController {
     }
 
     @PostMapping
-    public ResponseEntity<LivroResponseDTO> adicionarLivro(@RequestBody LivroRequestDTO requestDTO){
+    public ResponseEntity<LivroResponseDTO> adicionarLivro(@Valid @RequestBody LivroRequestDTO requestDTO){
         LivroResponseDTO novoLivro = livroService.adicionarLivro(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(novoLivro);
     }
@@ -45,7 +46,7 @@ public class LivroController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<LivroResponseDTO> atualizarLivro(@PathVariable Long id, @RequestBody LivroRequestDTO requestDTO){
+    public ResponseEntity<LivroResponseDTO> atualizarLivro(@PathVariable Long id, @Valid @RequestBody LivroRequestDTO requestDTO){
         LivroResponseDTO livroAtualizado = livroService.atualizarLivro(id, requestDTO);
         if(livroAtualizado == null){return ResponseEntity.notFound().build();}
         return ResponseEntity.ok(livroAtualizado);
