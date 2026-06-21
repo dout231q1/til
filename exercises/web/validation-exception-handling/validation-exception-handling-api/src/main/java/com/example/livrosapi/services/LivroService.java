@@ -57,6 +57,7 @@ public class LivroService {
 
     // DELETE
     public void deletarLivro(Long id){
-        livroRepository.deleteById(id);
+        Livro livroEncontrado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro nao encontrado com id " + id));
+        livroRepository.delete(livroEncontrado);
     }
 }
