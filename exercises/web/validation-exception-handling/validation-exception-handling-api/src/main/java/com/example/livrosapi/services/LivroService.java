@@ -3,6 +3,7 @@ package com.example.livrosapi.services;
 import com.example.livrosapi.dtos.LivroRequestDTO;
 import com.example.livrosapi.dtos.LivroResponseDTO;
 import com.example.livrosapi.entities.Livro;
+import com.example.livrosapi.exceptions.LivroNotFoundException;
 import com.example.livrosapi.repositories.LivroRepository;
 import org.springframework.stereotype.Service;
 
@@ -39,15 +40,13 @@ public class LivroService {
 
     // GET BY ID
     public LivroResponseDTO buscarLivro(Long id){
-        Livro livroBuscado = livroRepository.findById(id).orElse(null);
-        if(livroBuscado == null){return null;}
+        Livro livroBuscado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro nao encontrado com id " + id));
         return new LivroResponseDTO(livroBuscado);
     }
 
     // PUT
     public LivroResponseDTO atualizarLivro(Long id, LivroRequestDTO requestDTO){
-        Livro livroEncontrado = livroRepository.findById(id).orElse(null);
-        if(livroEncontrado == null){return null;}
+        Livro livroEncontrado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro nao encontrado com id " + id));
         livroEncontrado.setTitulo(requestDTO.titulo());
         livroEncontrado.setAutor(requestDTO.autor());
         livroEncontrado.setIsbn(requestDTO.isbn());
