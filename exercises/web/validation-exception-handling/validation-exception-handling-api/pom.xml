@@ -2,15 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!--
-        versao alterada de 4.0.6 para 3.4.2 por ser o padrao pra versao do java que estava utilizando (21)
-        a versao 4 anterior e experimental e bloqueava o console do H2 sem uso de gambiarras
-        como devtools ou fazer uma classe de configuracao
-    -->
     <parent>
+        <!--
+            apos ver um video melhor a respeito do spring 4.x.x entendi qual era o problema
+            versao alterada de 3.4.2 para 4.1.0 porque a 3.4.2 perdeu suporte gratis e dava erro de cve.
+            antes na 4.0.6 o h2 console dava not found e achava que a causa era a versao nao production ready,
+            mas o motivo real e que o spring boot 4.x.x modularizou o h2 e separou o console do banco.
+            mudando para a 4.1.0 garante 1 ano de patches sem custo e resolve o problema do console do jeito certo
+        -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.2</version>
+        <version>4.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
@@ -32,7 +34,6 @@
         <url/>
     </scm>
     <properties>
-        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
@@ -50,9 +51,16 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
+        <!--
+            houve uma inversao de logica no boot 4.x.x: colocar h2database traz apenas o motor e da not found na web.
+            usando apenas o h2console ela ja traz o console e puxa o motor do banco
+            por baixo dos panos via dependencia transitiva. isso limpa o pom tirando a necessidade de colocar
+            as duas linhas, funcionando tanto as rotas do postman quanto a tela do navegador
+        -->
+
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-h2console</artifactId>
         </dependency>
 
         <dependency>
