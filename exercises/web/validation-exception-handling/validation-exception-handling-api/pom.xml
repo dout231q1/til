@@ -3,13 +3,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <!--
-            apos ver um video melhor a respeito do spring 4.x.x entendi qual era o problema
-            versao alterada de 3.4.2 para 4.1.0 porque a 3.4.2 perdeu suporte gratis e dava erro de cve.
-            antes na 4.0.6 o h2 console dava not found e achava que a causa era a versao nao production ready,
-            mas o motivo real e que o spring boot 4.x.x modularizou o h2 e separou o console do banco.
-            mudando para a 4.1.0 garante 1 ano de patches sem custo e resolve o problema do console do jeito certo
-        -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.0</version>
@@ -50,13 +43,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-
-        <!--
-            houve uma inversao de logica no boot 4.x.x: colocar h2database traz apenas o motor e da not found na web.
-            usando apenas o h2console ela ja traz o console e puxa o motor do banco
-            por baixo dos panos via dependencia transitiva. isso limpa o pom tirando a necessidade de colocar
-            as duas linhas, funcionando tanto as rotas do postman quanto a tela do navegador
-        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
