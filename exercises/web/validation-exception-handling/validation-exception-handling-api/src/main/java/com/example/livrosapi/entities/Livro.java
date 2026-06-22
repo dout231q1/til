@@ -1,6 +1,7 @@
 package com.example.livrosapi.entities;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class Livro {
     private Long id;
     private String titulo;
     private String autor;
+    @Column(unique = true)
     private String isbn;
     private Year anoPublicacao;
 
