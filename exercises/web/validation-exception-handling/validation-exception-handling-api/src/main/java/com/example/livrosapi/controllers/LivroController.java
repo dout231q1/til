@@ -41,14 +41,12 @@ public class LivroController {
     @GetMapping("/{id}")
     public ResponseEntity<LivroResponseDTO> buscarLivro(@PathVariable Long id){
         LivroResponseDTO livro = livroService.buscarLivro(id);
-        if(livro == null){return ResponseEntity.notFound().build();}
         return ResponseEntity.ok(livro);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<LivroResponseDTO> atualizarLivro(@PathVariable Long id, @Valid @RequestBody LivroRequestDTO requestDTO){
         LivroResponseDTO livroAtualizado = livroService.atualizarLivro(id, requestDTO);
-        if(livroAtualizado == null){return ResponseEntity.notFound().build();}
         return ResponseEntity.ok(livroAtualizado);
     }
 

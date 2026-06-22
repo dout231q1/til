@@ -40,13 +40,13 @@ public class LivroService {
 
     // GET BY ID
     public LivroResponseDTO buscarLivro(Long id){
-        Livro livroBuscado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro nao encontrado com id " + id));
+        Livro livroBuscado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Nao foi possivel encontrar um livro com este ID: " + id));
         return new LivroResponseDTO(livroBuscado);
     }
 
     // PUT
     public LivroResponseDTO atualizarLivro(Long id, LivroRequestDTO requestDTO){
-        Livro livroEncontrado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro nao encontrado com id " + id));
+        Livro livroEncontrado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Nao foi possivel encontrar um livro com este id: " + id));
         livroEncontrado.setTitulo(requestDTO.titulo());
         livroEncontrado.setAutor(requestDTO.autor());
         livroEncontrado.setIsbn(requestDTO.isbn());
@@ -57,7 +57,7 @@ public class LivroService {
 
     // DELETE
     public void deletarLivro(Long id){
-        Livro livroEncontrado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Livro nao encontrado com id " + id));
+        Livro livroEncontrado = livroRepository.findById(id).orElseThrow(() -> new LivroNotFoundException("Nao foi possivel encontrar um livro com este id: " + id));
         livroRepository.delete(livroEncontrado);
     }
 }
